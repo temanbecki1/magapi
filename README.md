@@ -1,4 +1,10 @@
 # magapi
+Setup
+[] npm install
+[] postgresdb named magmutual needs to be created.
+[] run seed script ( npm run seed)
+
+Now you should be able to successfully test API.
 
 Given a CSV file of user information, build out an API with the following reqs:
 
