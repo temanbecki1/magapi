@@ -1,15 +1,12 @@
-import React from 'react'
+import React from 'react';
+import UsersList from './UsersList';
 
-const App = () => {
-
+function App() {
   return (
-
-      <div className="App">
-        Hello world
-      </div>
-
-
+    <div className="App">
+      <UsersList />
+    </div>
   );
 }
 
-export default App
+export default App;
