@@ -5,6 +5,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  seed     = "node seed/seed.js"
 }
 
 model User {
