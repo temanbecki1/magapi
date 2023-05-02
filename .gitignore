@@ -1,0 +1,20 @@
+# dependencies
+/node_modules
+bundle.js
+bundle.js.map
+
+# misc
+.DS_Store
+package-lock.json
+data.json
+test.js
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env
+.env*.local
