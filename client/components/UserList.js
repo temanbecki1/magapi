@@ -1,29 +1,14 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 import axios from 'axios';
 
-const fetchUsers = async () => {
-  const response = await axios.get('/api/users');
-  return response.data;
-};
-
-const UsersList = () => {
-  const { data: users, isLoading, error } = useQuery('users', fetchUsers);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
-
+const UserList = ({ users }) => {
   return (
     <div>
-      <h1>Users List</h1>
+      <h2>User List</h2>
       <table>
         <thead>
           <tr>
+            <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
@@ -34,8 +19,9 @@ const UsersList = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users.map(user => (
             <tr key={user.id}>
+              <td>{user.id}</td>
               <td>{user.firstname}</td>
               <td>{user.lastname}</td>
               <td>{user.email}</td>
@@ -51,4 +37,4 @@ const UsersList = () => {
   );
 };
 
-export default UsersList;
+export default UserList;

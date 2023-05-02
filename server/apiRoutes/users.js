@@ -15,13 +15,13 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// matches unknown amount of field parameters
-router.get('/search', async (req, res) => {
+// matches GET request to api/users/search
+router.get('/search', async (req, res, error) => {
   const allowedFields = ['id', 'firstname', 'lastname', 'email', 'profession', 'dateCreated', 'country', 'city'];
   const queryParams = req.query;
 
   const whereConditions = Object.entries(queryParams).reduce((conditions, [key, value]) => {
-    if (allowedFields.includes(key)) {
+    if (allowedFields.includes(key) && value.trim() !== '') {
       conditions[key] = key === 'dateCreated' ? { equals: new Date(value) } : { contains: value };
     }
     return conditions;
@@ -102,10 +102,5 @@ router.get('/profession', async (req, res) => {
     res.status(500).json({ error: 'Error fetching users with the specified profession.' });
   }
 });
-
-
-
-
-
 
 module.exports = router;

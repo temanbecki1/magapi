@@ -1,11 +1,11 @@
 import React from 'react';
-import UsersList from './UsersList';
-import UsersSearch from './UsersSearch';
+import UsersList from './UserList';
+import UsersSearch from './UserSearch';
 
 function App() {
   return (
     <div className="App">
-      <UsersList />
+      <h1>User Management</h1>
       <UsersSearch />
     </div>
   );
