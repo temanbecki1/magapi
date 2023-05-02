@@ -15,6 +15,28 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// matches unknown amount of field parameters
+router.get('/search', async (req, res) => {
+  const allowedFields = ['id', 'firstname', 'lastname', 'email', 'profession', 'dateCreated', 'country', 'city'];
+  const queryParams = req.query;
+
+  const whereConditions = Object.entries(queryParams).reduce((conditions, [key, value]) => {
+    if (allowedFields.includes(key)) {
+      conditions[key] = key === 'dateCreated' ? { equals: new Date(value) } : { contains: value };
+    }
+    return conditions;
+  }, {});
+
+  try {
+    const users = await prisma.user.findMany({
+      where: whereConditions,
+    });
+    res.status(201).json(users);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching users with the specified conditions.' });
+  }
+});
+
 // matches GET request to api/users/:id
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
@@ -81,27 +103,7 @@ router.get('/profession', async (req, res) => {
   }
 });
 
-// matches unknown amount of field parameters
-router.get('/search', async (req, res) => {
-  const allowedFields = ['id', 'firstname', 'lastname', 'email', 'profession', 'dateCreated', 'country', 'city'];
-  const queryParams = req.query;
 
-  const whereConditions = Object.entries(queryParams).reduce((conditions, [key, value]) => {
-    if (allowedFields.includes(key)) {
-      conditions[key] = key === 'dateCreated' ? { equals: new Date(value) } : { contains: value };
-    }
-    return conditions;
-  }, {});
-
-  try {
-    const users = await prisma.user.findMany({
-      where: whereConditions,
-    });
-    res.status(201).json(users);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching users with the specified conditions.' });
-  }
-});
 
 
 
